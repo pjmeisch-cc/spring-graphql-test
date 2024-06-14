@@ -8,6 +8,6 @@ data class AuthorGraphQLType(
     val lastName: String,
     val birthDate: LocalDate,
 ) {
-    val fullName: String
-        get() = "$firstName $lastName"
+    @JvmName("getFullName")
+    fun fullName(): String = "$firstName $lastName"
 }
