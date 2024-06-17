@@ -8,6 +8,7 @@ data class AuthorGraphQLType(
     val lastName: String,
     val birthDate: LocalDate,
 ) {
-    @JvmName("getFullName")
-    fun fullName(): String = "$firstName $lastName"
+    fun fullName() = "$firstName $lastName"
+
+    fun translatedName() = TranslatedTextGraphQLType(text = fullName())
 }

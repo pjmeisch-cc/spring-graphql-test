@@ -5,7 +5,8 @@ type Query {
 type Book {
     id: ID!
     name: String!
-    pageCount: Int!
+    translatedName: TranslatedText!
+    pages: Int!
     author: Author!
 }
 
@@ -14,7 +15,17 @@ type Author {
     firstName: String!
     lastName: String!
     fullName: String!
+    translatedName: TranslatedText!
     birthDate: Date!
+}
+
+type TranslatedText {
+    translations(languageTags: [String!]): [Translation!]!
+}
+
+type Translation {
+    languageTag: String!
+    translation: String
 }
 
 scalar Date

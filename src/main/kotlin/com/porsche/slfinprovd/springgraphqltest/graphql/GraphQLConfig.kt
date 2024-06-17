@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.graphql.execution.DataFetcherExceptionResolver
 import org.springframework.graphql.execution.ErrorType
 import org.springframework.graphql.execution.RuntimeWiringConfigurer
+import org.springframework.graphql.execution.SchemaReport
 
 @Configuration
 class GraphQLConfig {
@@ -22,6 +23,11 @@ class GraphQLConfig {
     fun sourceBuilderCustomizer(): GraphQlSourceBuilderCustomizer = GraphQlSourceBuilderCustomizer { builder ->
         builder
             .instrumentation(listOf(TraceIdInstrumentation()))
+//            .inspectSchemaMappings { report ->
+//                if (report.unmappedFields().isNotEmpty()) {
+//                    throw GraphQLInspectionException(report)
+//                }
+//            }
             .exceptionResolvers(exceptionResolvers())
     }
 
@@ -41,3 +47,7 @@ class GraphQLConfig {
 
     fun localDateScalar(): GraphQLScalarType = ExtendedScalars.Date
 }
+
+class GraphQLInspectionException(
+    report: SchemaReport,
+) : RuntimeException("GraphQL schema inspection: $report")

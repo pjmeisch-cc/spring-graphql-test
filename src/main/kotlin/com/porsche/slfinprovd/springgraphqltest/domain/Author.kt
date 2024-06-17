@@ -5,7 +5,12 @@ import java.time.LocalDate
 import java.util.Arrays
 import java.util.function.Predicate
 
-data class Author(val id: String, val firstName: String, val lastName: String, val birthDate: LocalDate) {
+data class Author(
+    val id: String,
+    val firstName: String,
+    val lastName: String,
+    val birthDate: LocalDate,
+) {
     companion object {
         private val authors: List<Author?> =
             Arrays.asList(
@@ -14,16 +19,17 @@ data class Author(val id: String, val firstName: String, val lastName: String, v
                 Author("author-3", "Bill", "Bryson", birthDate = LocalDate.of(1951, 12, 8)),
             )
 
-        fun getById(id: String): Author? {
-            return authors.stream().filter(Predicate({ author: Author? -> author!!.id == id })).findFirst().orElse(null)
-        }
+        fun getById(id: String): Author? = authors
+            .stream()
+            .filter(Predicate({ author: Author? -> author!!.id == id }))
+            .findFirst()
+            .orElse(null)
     }
 }
 
-fun Author.toGraphQL() =
-    AuthorGraphQLType(
-        id = id,
-        firstName = firstName,
-        lastName = lastName,
-        birthDate = birthDate,
-    )
+fun Author.toGraphQL() = AuthorGraphQLType(
+    id = id,
+    firstName = firstName,
+    lastName = lastName,
+    birthDate = birthDate,
+)
