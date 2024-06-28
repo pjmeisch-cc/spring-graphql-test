@@ -14,8 +14,13 @@ java {
     }
 }
 
+extra["spring-graphql.version"] = "1.3.2-SNAPSHOT"
+
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://repo.spring.io/snapshot")
+    }
 }
 
 dependencies {
